@@ -10,5 +10,5 @@ Its just a start and definitely still a work in progress...
 2 Scripts incorporated are modified versions of those found in the following project:
 https://github.com/simonschellaert/spotify2am
 
-1 scripts, the itunes.py script is an old one from Jim Randell that I added to to include a "new playlist" function. The script functions reasonable well on the latest iTunes on Mac OS X El Capitan, despite using the 'old' appscript python library.
+1 script; the itunes.py script is an old one from Jim Randell that I added to to include a "new playlist" function. The script functions reasonable well on the latest iTunes on Mac OS X El Capitan, despite using the 'old' appscript python library.
 
