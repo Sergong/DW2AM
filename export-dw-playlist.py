@@ -29,7 +29,7 @@ def show_playlist_tracks(jsondata):
 # Code to get an access token to be able to read my user playlists, using a callout to curl
 
 # The string to encode is made up for ClientID:ClientSecret and needs to be Base64 encoded
-client = str(base64.b64encode(b'fdc8ae6ecd21411bbc05b3581157cc08:80ff297c1353496980afe2a4b2ca0d40'))
+client = str(base64.b64encode(b'ClientID:ClientSecret'))
 # Some String manipulation is needed to convert the binary encoding result into a string
 encoded = client[2:len(client)-1]
 # Constructing the Curl cmd line call to included the Base64 encoded Client and Secret and pipe it to a file
@@ -46,7 +46,7 @@ access_token = json.loads(output)['access_token']
 #
 # set up additional data to be used in subsequent calls
 #
-userid = "117489066"
+userid = "" # <--- Spotify User ID 
 name = "Discover Weekly"
 
 # Now find the discover weekly playlist (note that you must ensure your personalized Discover Weekly playlist is publicly readable)
