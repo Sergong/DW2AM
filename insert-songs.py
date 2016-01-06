@@ -27,9 +27,9 @@ def add_song(itunes_identifier):
         "Connection" : "keep-alive",
         "Content-Type" : "application/x-dmap-tagged",
         # Replace the values of the next three headers with the values you intercepted
-        "X-Dsid" : "94537765",
-        "Cookie" : "amia-94537765=3NlgaslZ/NkMghat4htbbml5mVwcughHw1RaIcPvmYLJuzq070TN0NT/zBANlt49/cFnMP3s9kB0xvp0ovnqtQ==; amp=zemDjHTK6zugtKsZJyegKfYsoV7r5wDbVNzOxU3S/RHSUfB54C/FK/UvBU4DGiagHQl2JBZYlAVuw4BZWPWFOdAa8t2YscpnpK7GAzHswOWMs2LGhYrczIJdM4K3GBoUImKwetP+PThcKvjmGkfD3zbokbjbNoDTtBS29jhm/2JoTQlBswPqjniw7fy7OYItLZ0OKA4xGH2bXsgCd90kEwdOfTQLaMvORSB4wNiEbxLFN/JESEtDnuqraoQQayFJ; mt-asn-94537765=15; mt-tkn-94537765=ApvTi/XpXgSMSy6dFJqehoXtzXAjk7QAMNTl2GUpZL/Nxj+p9y7nj0oOBxG2KS0wtzQYqeBGBm536wh0R674aJ1IW/T0jv1qQuYaAidwH8VEpv/SV7qKToiSWK7C4Kgz2wuBQDu+Gl3hmIOBFju+4/MrBed95FY/8Gsa1qidwblGKIJ8wOclecuFnWaAgjxk6Y/34Gw=; mzf_in=502440; TrPod=4; X-Dsid=94537765; itspod=50; mz_at0-94537765=AwQAAAEBAAHV7gAAAABWedbOzrHm9kgoLE+sw2K/+u3lw8tONx0=; mz_at_ssl-94537765=AwUAAAEBAAHV7gAAAABWedbO8xZty5r5JTAZH1Gqb8XgZ10DDXY=; ns-mzf-inst=179-44-443-215-23-8160-502440-50-st13; s_vi=[CS]v1|2B3CEF8585012FB8-600001370006D297[CE]; xp_ci=3z2HjWUdz3UXz5ErzB19zXkakdO0d",
-        "X-Guid" : "A8206622DC71",
+        "X-Dsid" : "",
+        "Cookie" : "",
+        "X-Guid" : "",
         "Content-Length" : "77"
     }
 
