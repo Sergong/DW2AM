@@ -10,7 +10,10 @@ import datetime
 # url = sys.argv[1:][0]                                 -- Version 1
 
 # os.system('python3 write-spotify-csv.py ' + url)      -- Version 1
-os.system('python3 export-dw-playlist.py')           #  -- Version 2 addition
+if(os.system('python3 export-dw-playlist.py') > 0):           #  -- Version 2 addition
+    print("Environment variables not set. Stopping further execution..")
+    exit()
+
 os.system('python3 retrieve-identifiers.py')
 os.system('python3 insert-songs.py')
 

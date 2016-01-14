@@ -30,19 +30,37 @@ def show_playlist_tracks(jsondata):
 
 # The string to encode is made up of ClientID:ClientSecret and needs to be Base64 encoded
 # using environment variables to set this up
-if(os.environ['AWS_CLIENT_ID'] == ''):
+try:
+    clientid = os.environ['AWS_CLIENT_ID']
+
+    if(clientid == ''):
+        print("The AWS_CIENT_ID environment variable is empty. Exiting...")
+        exit(1)
+except:
     print("The AWS_CIENT_ID environment variable is not set. Exiting...")
-    exit()
+    exit(1)
 
-if(os.environ['AWS_CLIENT_SECRET'] == ''):
+try:
+    clientsecret = os.environ['AWS_CLIENT_SECRET']
+
+    if(clientsecret == ''):
+        print("The AWS_CIENT_SECRET environment variable is empty. Exiting...")
+        exit(1)
+except:
     print("The AWS_CIENT_SECRET environment variable is not set. Exiting...")
-    exit()
+    exit(1)
 
-if(os.environ['SPOTIFY_USERID'] == ''):
+try:
+    userid = os.environ['SPOTIFY_USERID']
+
+    if(userid == ''):
+        print("The SPOTIFY_USERID environment variable is empty. Exiting...")
+        exit(1)
+except:
     print("The SPOTIFY_USERID environment variable is not set. Exiting...")
-    exit()
-    
-clientconcat = os.environ['AWS_CLIENT_ID'] + ':' + os.environ['AWS_CLIENT_SECRET']
+    exit(1)
+
+clientconcat = clientid + ':' + clientsecret
 client = str(base64.b64encode(clientconcat))
 
 # Some String manipulation is needed to convert the binary encoding result into a string
@@ -61,7 +79,7 @@ access_token = json.loads(output)['access_token']
 #
 # set up additional data to be used in subsequent calls
 #
-userid = os.environ['SPOTIFY_USERID']
+
 name = "Discover Weekly"
 
 # Now find the discover weekly playlist (note that you must ensure your personalized Discover Weekly playlist is publicly readable)
