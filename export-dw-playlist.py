@@ -9,7 +9,7 @@ import csv
 import json
 import base64
 import os
-import sys
+
 
 
 def show_playlist_tracks(jsondata):
@@ -28,8 +28,23 @@ def show_playlist_tracks(jsondata):
 #
 # Code to get an access token to be able to read my user playlists, using a callout to curl
 
-# The string to encode is made up for ClientID:ClientSecret and needs to be Base64 encoded
-client = str(base64.b64encode(b'ClientID:ClientSecret'))
+# The string to encode is made up of ClientID:ClientSecret and needs to be Base64 encoded
+# using environment variables to set this up
+if(os.environ['AWS_CLIENT_ID'] == ''):
+    print("The AWS_CIENT_ID environment variable is not set. Exiting...")
+    exit()
+
+if(os.environ['AWS_CLIENT_SECRET'] == ''):
+    print("The AWS_CIENT_SECRET environment variable is not set. Exiting...")
+    exit()
+
+if(os.environ['SPOTIFY_USERID'] == ''):
+    print("The SPOTIFY_USERID environment variable is not set. Exiting...")
+    exit()
+    
+clientconcat = os.environ['AWS_CLIENT_ID'] + ':' + os.environ['AWS_CLIENT_SECRET']
+client = str(base64.b64encode(clientconcat))
+
 # Some String manipulation is needed to convert the binary encoding result into a string
 encoded = client[2:len(client)-1]
 # Constructing the Curl cmd line call to included the Base64 encoded Client and Secret and pipe it to a file
@@ -46,7 +61,7 @@ access_token = json.loads(output)['access_token']
 #
 # set up additional data to be used in subsequent calls
 #
-userid = "" # <--- Spotify User ID 
+userid = os.environ['SPOTIFY_USERID']
 name = "Discover Weekly"
 
 # Now find the discover weekly playlist (note that you must ensure your personalized Discover Weekly playlist is publicly readable)
