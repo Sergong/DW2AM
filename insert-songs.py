@@ -12,7 +12,7 @@ def construct_request_body(timestamp, itunes_identifier):
     return body
 
 
-def add_song(itunes_identifier):
+def add_song(itunes_identifier, XDsid, Cookie, XGuid):
     data = construct_request_body(int(time.time()), itunes_identifier)
 
     headers = {
@@ -27,9 +27,9 @@ def add_song(itunes_identifier):
         "Connection" : "keep-alive",
         "Content-Type" : "application/x-dmap-tagged",
         # Replace the values of the next three headers with the values you intercepted
-        "X-Dsid" : "",
-        "Cookie" : "",
-        "X-Guid" : "",
+        "X-Dsid" : XDsid,
+        "Cookie" : Cookie,
+        "X-Guid" : XGuid,
         "Content-Length" : "77"
     }
 
@@ -37,12 +37,42 @@ def add_song(itunes_identifier):
     urllib.request.urlopen(request)
 
 
+try:
+    XDsid = os.environ['XDsid']
+
+    if(XDsid == ''):
+        print("The XDsid environment variable is empty. Exiting...")
+        exit(1)
+except:
+    print("The XDsid environment variable is not set. Exiting...")
+    exit(1)
+
+try:
+    Cookie = os.environ['Cookie']
+
+    if(Cookie == ''):
+        print("The Cookie environment variable is empty. Exiting...")
+        exit(1)
+except:
+    print("The Cookie environment variable is not set. Exiting...")
+    exit(1)
+
+try:
+    XGuid = os.environ['XGuid']
+
+    if(XGuid == ''):
+        print("The XGuid environment variable is empty. Exiting...")
+        exit(1)
+except:
+    print("The XGuid environment variable is not set. Exiting...")
+    exit(1)
+
 with open('itunes.csv') as itunes_identifiers_file:
     for line in itunes_identifiers_file:
         itunes_identifier = int(line)
 
         try:
-            add_song(itunes_identifier)
+            add_song(itunes_identifier, XDsid, Cookie, XGuid)
             print("Successfuly inserted a song!")
             # Try playing with the interval here to circumvent the API rate limit
             time.sleep(10)
