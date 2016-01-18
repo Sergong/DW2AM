@@ -34,7 +34,7 @@ myvars = {}
 with open("setup-spotify.txt") as myfile:
     for line in myfile:
         (key, value) = line.split(':')
-        myvars[key] = value
+        myvars[key] = value.strip()
 
 
 clientconcat = myvars['AWS_CLIENT_ID'] + ':' + myvars['AWS_CLIENT_SECRET']
