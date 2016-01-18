@@ -88,11 +88,11 @@ spotcsv = csv.writer(open('spotify.csv', 'w'), delimiter=',', quotechar='"', quo
 spotcsv.writerow(['title', 'artist', 'album'])
 
 for item in jsondata['items']:
-  song = item['track']['name']
-  album_name = item['track']['album']['name']
-  for artist in item['track']['artists']:
-    artist_name = artist['name']
+    song = item['track']['name']
+    album_name = item['track']['album']['name']
+    for artist in item['track']['artists']:
+        artist_name = artist['name']
 
-  # Print the result to screen as well as writing the row in the CSV file
-  print('Song: {}, artist: {}, album: {}'.format(song, artist_name, album_name))
-  spotcsv.writerow([song, artist_name, album_name])
+    # Print the result to screen as well as writing the row in the CSV file
+    print('Song: {}, artist: {}, album: {}'.format(song, artist_name, album_name))
+    spotcsv.writerow([song, artist_name, album_name])
