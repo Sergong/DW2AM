@@ -18,10 +18,6 @@
 import appscript
 import time
 import sys
-import re
-import os
-import shutil
-import mactypes
 import datetime
 
 # separator for playlist folders
@@ -31,6 +27,7 @@ SEP = ' > '
 # if you haven't changed your library from the default, and that will save time
 # especially if your library is large
 MUSIC_LIBRARY = '/Volumes/iTunes/Library/Music/'
+
 
 def find_playlist(playlists, name, kind=appscript.k.none):
     "find_playlist - find a playlist in a list of playlists"
@@ -47,6 +44,7 @@ def find_playlist(playlists, name, kind=appscript.k.none):
     for playlist in playlists:
         if not playlist.special_kind() == kind: continue
         if playlist_path(playlist) == name: return playlist
+
 
 def create_folder(app, path):
     "create_folder - return a playlist folder, creating folders as necessary"
@@ -69,6 +67,7 @@ def create_folder(app, path):
 
     # return the newly created playlist
     return folder
+
 
 def new_playlist(path):
     "new-playlist <playlist> - Creates a Playlist from the added tracks on todays date"
@@ -101,8 +100,8 @@ def new_playlist(path):
                 cdt = datetime.datetime.strptime(cur_date, "%Y-%m-%d")
                 tdt = datetime.datetime.strptime(tdate, "%Y-%m-%d")
                 datediff = int(str(cdt - tdt)[:1])
-                # print("Date Added: {}, Date Today: {}, Difference: {}".format(tdate, cur_date, str(datediff)))
-                # print("Date differs by {} days".format(datediff))
+                print("Date Added: {}, Date Today: {}, Difference: {}".format(tdate, cur_date, str(datediff)))
+                print("Date differs by {} days".format(datediff))
                 if datediff == 0:
                     print("Adding track name: " + track.name())
                     app.duplicate(track, to=new_playlist)
@@ -110,9 +109,10 @@ def new_playlist(path):
     # show the playlist
     app.reveal(new_playlist)
 
+
 if __name__ == "__main__":
 
     if len(sys.argv) > 1:
-        new_playlist(*sys.argv[1])
+        new_playlist(sys.argv[1])
     else:
         print("Please call with a playlist name...")
