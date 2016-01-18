@@ -1,6 +1,7 @@
 import time
 import struct
 import urllib.parse, urllib.request
+import os
 
 
 def construct_request_body(timestamp, itunes_identifier):
