@@ -61,6 +61,7 @@ except:
     exit(1)
 
 clientconcat = clientid + ':' + clientsecret
+clientconcat = clientconcat.encode('utf-8')
 client = str(base64.b64encode(clientconcat))
 
 # Some String manipulation is needed to convert the binary encoding result into a string
