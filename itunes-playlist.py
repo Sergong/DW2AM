@@ -29,6 +29,21 @@ SEP = ' > '
 MUSIC_LIBRARY = '/Volumes/iTunes/Library/Music/'
 
 
+def playlist_path(playlist):
+    "playlist_path - return the path of the playlist"
+
+    path = []
+    while True:
+        path.insert(0, playlist.name())
+        try:
+            playlist = playlist.parent()
+            kind = playlist.special_kind()  # this throws an error if the parent isn't really real
+        except appscript.reference.CommandError:
+            break
+
+    return SEP.join(path)
+
+
 def find_playlist(playlists, name, kind=appscript.k.none):
     "find_playlist - find a playlist in a list of playlists"
 
