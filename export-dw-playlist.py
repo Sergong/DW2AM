@@ -30,39 +30,17 @@ def show_playlist_tracks(jsondata):
 
 # The string to encode is made up of ClientID:ClientSecret and needs to be Base64 encoded
 # using environment variables to set this up
-try:
-    clientid = os.environ['AWS_CLIENT_ID']
+myvars = {}
+with open("setup-spotify.txt") as myfile:
+    for line in myfile:
+        (key, value) = line.split(':')
+        myvars[key] = value
 
-    if(clientid == ''):
-        print("The AWS_CIENT_ID environment variable is empty. Exiting...")
-        exit(1)
-except:
-    print("The AWS_CIENT_ID environment variable is not set. Exiting...")
-    exit(1)
 
-try:
-    clientsecret = os.environ['AWS_CLIENT_SECRET']
-
-    if(clientsecret == ''):
-        print("The AWS_CIENT_SECRET environment variable is empty. Exiting...")
-        exit(1)
-except:
-    print("The AWS_CIENT_SECRET environment variable is not set. Exiting...")
-    exit(1)
-
-try:
-    userid = os.environ['SPOTIFY_USERID']
-
-    if(userid == ''):
-        print("The SPOTIFY_USERID environment variable is empty. Exiting...")
-        exit(1)
-except:
-    print("The SPOTIFY_USERID environment variable is not set. Exiting...")
-    exit(1)
-
-clientconcat = clientid + ':' + clientsecret
+clientconcat = myvars['AWS_CLIENT_ID'] + ':' + myvars['AWS_CLIENT_SECRET']
 clientconcat = clientconcat.encode('utf-8')
 client = str(base64.b64encode(clientconcat))
+userid = myvars['SPOTIFY_USERID']
 
 # Some String manipulation is needed to convert the binary encoding result into a string
 encoded = client[2:len(client)-1]

@@ -1,8 +1,6 @@
 import time
 import struct
 import urllib.parse, urllib.request
-import os
-
 
 def construct_request_body(timestamp, itunes_identifier):
     hex = "61 6a 43 41 00 00 00 45 6d 73 74 63 00 00 00 04 55 94 17 a3 6d 6c 69 64 00 00 00 04 00 00 00 00 6d 75 73 72 00 00 00 04 00 00 00 81 6d 69 6b 64 00 00 00 01 02 6d 69 64 61 00 00 00 10 61 65 41 69 00 00 00 08 00 00 00 00 11 8c d9 2c 00"
@@ -13,8 +11,9 @@ def construct_request_body(timestamp, itunes_identifier):
     return body
 
 
-def add_song(itunes_identifier, XDsid, Cookie, XGuid):
+def add_song(itunes_identifier, myvars):
     data = construct_request_body(int(time.time()), itunes_identifier)
+    XDsid, Cookie, XGuid = myvars['XDsid'], myvars['Cookie'], myvars['XGuid']
 
     headers = {
         "X-Apple-Store-Front" : "143446-10,32 ab:rSwnYxS0",
@@ -37,43 +36,19 @@ def add_song(itunes_identifier, XDsid, Cookie, XGuid):
     request = urllib.request.Request("https://ld-4.itunes.apple.com/WebObjects/MZDaap.woa/daap/databases/1/cloud-add", data, headers)
     urllib.request.urlopen(request)
 
+myvars = {}
+with open("setup-applemusic.txt") as myfile:
+    for line in myfile:
+        (key, value) = line.split(':')
+        myvars[key] = value.strip()
 
-try:
-    XDsid = os.environ['XDsid']
-
-    if(XDsid == ''):
-        print("The XDsid environment variable is empty. Exiting...")
-        exit(1)
-except:
-    print("The XDsid environment variable is not set. Exiting...")
-    exit(1)
-
-try:
-    Cookie = os.environ['Cookie']
-
-    if(Cookie == ''):
-        print("The Cookie environment variable is empty. Exiting...")
-        exit(1)
-except:
-    print("The Cookie environment variable is not set. Exiting...")
-    exit(1)
-
-try:
-    XGuid = os.environ['XGuid']
-
-    if(XGuid == ''):
-        print("The XGuid environment variable is empty. Exiting...")
-        exit(1)
-except:
-    print("The XGuid environment variable is not set. Exiting...")
-    exit(1)
 
 with open('itunes.csv') as itunes_identifiers_file:
     for line in itunes_identifiers_file:
         itunes_identifier = int(line)
 
         try:
-            add_song(itunes_identifier, XDsid, Cookie, XGuid)
+            add_song(itunes_identifier, )
             print("Successfuly inserted a song!")
             # Try playing with the interval here to circumvent the API rate limit
             time.sleep(10)
