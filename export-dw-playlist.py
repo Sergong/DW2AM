@@ -28,7 +28,7 @@ def show_playlist_tracks(jsondata):
 # Code to get an access token to be able to read my user playlists, using a callout to curl
 
 # The string to encode is made up of ClientID:ClientSecret and needs to be Base64 encoded
-# using environment variables to set this up
+# reading variables from a file to set this up
 myvars = {}
 with open("setup-spotify.txt") as myfile:
     for line in myfile:

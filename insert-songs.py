@@ -36,6 +36,7 @@ def add_song(itunes_identifier, myvars):
     request = urllib.request.Request("https://ld-4.itunes.apple.com/WebObjects/MZDaap.woa/daap/databases/1/cloud-add", data, headers)
     urllib.request.urlopen(request)
 
+# Some code to read variables used in the add_song function (you'll need to use an https proxy such as Charles to figure out what yours might be
 myvars = {}
 with open("setup-applemusic.txt") as myfile:
     for line in myfile:
@@ -48,9 +49,9 @@ with open('itunes.csv') as itunes_identifiers_file:
         itunes_identifier = int(line)
 
         try:
-            add_song(itunes_identifier, )
+            add_song(itunes_identifier, myvars)
             print("Successfuly inserted a song!")
-            # Try playing with the interval here to circumvent the API rate limit
+            # Try playing with the interval here to circumvent the API rate limit; 10 seems to work fine on mine
             time.sleep(10)
         except Exception as e:
             print("Something went wrong while inserting " + str(itunes_identifier) + " : " + str(e))
