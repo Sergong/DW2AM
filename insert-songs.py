@@ -39,9 +39,7 @@ def add_song(itunes_identifier, myvars):
 # Some code to read variables used in the add_song function (you'll need to use an https proxy such as Charles to figure out what yours might be
 myvars = {}
 with open("setup-applemusic.txt") as myfile:
-    for line in myfile:
-        (key, value) = line.split(':')
-        myvars[key] = value.strip()
+    myvars = {k: v.strip() for k, v in [line.split(':') for line in myfile]}
 
 
 with open('itunes.csv') as itunes_identifiers_file:

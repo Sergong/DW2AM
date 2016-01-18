@@ -31,9 +31,7 @@ def show_playlist_tracks(jsondata):
 # reading variables from a file to set this up
 myvars = {}
 with open("setup-spotify.txt") as myfile:
-    for line in myfile:
-        (key, value) = line.split(':')
-        myvars[key] = value.strip()
+    myvars = {k: v.strip() for k, v in [line.split(':') for line in myfile]}
 
 clientconcat = myvars['AWS_CLIENT_ID'] + ':' + myvars['AWS_CLIENT_SECRET']
 clientconcat = clientconcat.encode('utf-8')
