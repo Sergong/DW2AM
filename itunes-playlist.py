@@ -124,10 +124,42 @@ def new_playlist(path):
     # show the playlist
     app.reveal(new_playlist)
 
+def new_playlist_debug(plname):
+    "new-playlist <playlist> - Creates a Playlist from the added tracks on todays date"
+
+    app = appscript.app('iTunes')
+
+    new_playlist = [playlist for playlist in app.playlists() if playlist.name() == plname][0]
+
+    # add the tracks added today (possibly yesterday) to the new playlist
+    for playlist in app.playlists():
+        if playlist.name() == 'Recently Added':
+            for track in playlist.tracks():
+                cur_date = time.strftime("%Y-%m-%d")
+                tdate = str(track.date_added())
+                tdate = tdate.split(' ')[0]
+                cdt = datetime.datetime.strptime(cur_date, "%Y-%m-%d")
+                tdt = datetime.datetime.strptime(tdate, "%Y-%m-%d")
+                datediff = int(str(cdt - tdt)[:1])
+                print("Track Name: {}, Date Added: {}, Date Today: {}, Difference: {} days".format(track.name(), tdate, cur_date, str(datediff)))
+                #if datediff == 0:
+                    #print("Adding track name: " + track.name())
+                    #app.duplicate(track, to=new_playlist)
+
+    # show the playlist
+    app.reveal(new_playlist)
+
 
 if __name__ == "__main__":
 
     if len(sys.argv) > 1:
+        # Wait for approx 90 seconds before adding a new playlist and adding songs from Recently Added, should allow
+        # iTunes to catch up...
+        time.sleep(90)
         new_playlist(sys.argv[1])
     else:
-        print("Please call with a playlist name...")
+        # code used for debugging playlist addition in iTunes...
+        plname = "Discover_Weekly_2016_4"
+        print("Debugging with existing playlistname...")
+        new_playlist_debug(plname)
+
