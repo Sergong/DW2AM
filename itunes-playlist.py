@@ -116,7 +116,6 @@ def new_playlist(path):
                 tdt = datetime.datetime.strptime(tdate, "%Y-%m-%d")
                 datediff = int(str(cdt - tdt)[:1])
                 print("Date Added: {}, Date Today: {}, Difference: {}".format(tdate, cur_date, str(datediff)))
-                print("Date differs by {} days".format(datediff))
                 if datediff == 0:
                     print("Adding track name: " + track.name())
                     app.duplicate(track, to=new_playlist)
