@@ -1,6 +1,7 @@
 import time
 import struct
 import urllib.parse, urllib.request
+import csv
 
 def construct_request_body(timestamp, itunes_identifier):
     hex = "61 6a 43 41 00 00 00 45 6d 73 74 63 00 00 00 04 55 94 17 a3 6d 6c 69 64 00 00 00 04 00 00 00 00 6d 75 73 72 00 00 00 04 00 00 00 81 6d 69 6b 64 00 00 00 01 02 6d 69 64 61 00 00 00 10 61 65 41 69 00 00 00 08 00 00 00 00 11 8c d9 2c 00"
@@ -37,19 +38,22 @@ def add_song(itunes_identifier, myvars):
     urllib.request.urlopen(request)
 
 # Some code to read variables used in the add_song function (you'll need to use an https proxy such as Charles to figure out what yours might be
-myvars = {}
 with open("setup-applemusic.txt") as myfile:
     myvars = {k: v.strip() for k, v in [line.split(':') for line in myfile]}
 
 
 with open('itunes.csv') as itunes_identifiers_file:
-    for line in itunes_identifiers_file:
-        itunes_identifier = int(line)
+    itunes_reader = csv.reader(itunes_identifiers_file)
+    next(itunes_reader)
+
+    for row in itunes_reader:
+        itunes_identifier = int(row[0])
+        title, artist, album = row[1], row[2], row[3]
 
         try:
             add_song(itunes_identifier, myvars)
-            print("Successfuly inserted a song!")
+            print("Successfuly added song {}, by {}, on album {} to your Library.".format(title, artist, album))
             # Try playing with the interval here to circumvent the API rate limit; 10 seems to work fine on mine
             time.sleep(10)
         except Exception as e:
-            print("Something went wrong while inserting " + str(itunes_identifier) + " : " + str(e))
+            print("Something went wrong while adding song {} with ID {} to your Library. The error: {}.".format(title, str(itunes_identifier), str(e)))
