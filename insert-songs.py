@@ -17,6 +17,7 @@ def add_song(itunes_identifier, myvars):
     XDsid, Cookie, XGuid = myvars['XDsid'], myvars['Cookie'], myvars['XGuid']
 
     headers = {
+        # The Apple Store Front value also should be checked from Charles is you get error "HTTP Error 400: Apple WebObjects"
         "X-Apple-Store-Front" : "143446-10,32 ab:rSwnYxS0",
         "Client-iTunes-Sharing-Version" : "3.12",
         "Accept-Language" : "nl-nl, nl;q=0.83, fr-fr;q=0.67, fr;q=0.50, en-us;q=0.33, en;q=0.17",
@@ -24,7 +25,8 @@ def add_song(itunes_identifier, myvars):
         "Accept-Encoding" : "gzip",
         "X-Apple-itre" : "0",
         "Client-DAAP-Version" : "3.13",
-        "User-Agent" : "iTunes/12.3.2 (Macintosh; OS X 10.11.2) AppleWebKit/601.3.9",
+        # The User agent field needs to match the value from Charles, if not you get the "HTTP Error 401: Apple WebObjects" error
+        "User-Agent" : "iTunes/12.4.1 (Macintosh; OS X 10.11.5) AppleWebKit/601.6.17",
         "Connection" : "keep-alive",
         "Content-Type" : "application/x-dmap-tagged",
         # Replace the values of the next three headers with the values you intercepted
